@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dno1vqbtlrge5"]
+
+[ext_resource type="Texture2D" uid="uid://b8q5gdmcm5807" path="res://assets/sprites/slime_green.png" id="1_8btf1"]
+[ext_resource type="Script" path="res://scripts/enemy_slime.gd" id="1_pwun8"]
+[ext_resource type="PackedScene" uid="uid://chmpmquh33mew" path="res://scenes/killzone.tscn" id="2_tdbyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aasl2"]
+atlas = ExtResource("1_8btf1")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f8pl"]
+atlas = ExtResource("1_8btf1")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7io2"]
+atlas = ExtResource("1_8btf1")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gwng"]
+atlas = ExtResource("1_8btf1")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_860ow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aasl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7f8pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7io2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gwng")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vk0aq"]
+radius = 5.0
+
+[node name="EnemySlime" type="Node2D"]
+script = ExtResource("1_pwun8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_860ow")
+autoplay = "default"
+
+[node name="Killzone" parent="." instance=ExtResource("2_tdbyv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_vk0aq")
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+position = Vector2(1, 6)
+target_position = Vector2(11, 0)
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+position = Vector2(1, 6)
+target_position = Vector2(-12, 0)
